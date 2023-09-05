@@ -1,13 +1,26 @@
 import * as React from 'react';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-export default function Button() {
+export default function Button({children,icon,variant="primary",element="link", ...props}) {
+  const styles = {
+    primary: "flex intems-center gap-2 bg-blue-600 py-1 px-4 rounded hover:bg-blue-800",
+    secundary:"flex intems-center gap-2 border-2 border-slate-500 py-1 px-4 rounded hover:bg-slate-700"
+  }
+
+  const variantClass = styles[variant]
+
   return (
-    <Stack spacing={2} direction="row">
-     
-      <Button variant="contained">Criar Cadastro</Button>
-     
-    </Stack>
-  );
+    <>
+    {element==="link"?
+      <link href= "#" {...props} className='flex inten-center gap-2 bg-blue-600 py-1 px-4 rounded hover:bg-blue-800'>
+       {icon}
+       {children}
+
+
+      </link>
+  :
+      <input type="submit" value={children}/>  
+  }
+  </>
+    )
 }
