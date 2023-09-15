@@ -1,9 +1,11 @@
 'use server'
 import { revalidatePath } from "next/cache"
+import {getContas} from "@actions/CadastrarAluno"
+
+const url = process.env.NETX_PUBLIC_BASE_URL + "aluno/"
 
 export async function create(formData) {
-    const url = "https://cponline-production.up.railway.app/api/aluno/"
-
+    
     const data = Object.fromEntries(formData)
     console.log(data)
 
@@ -30,3 +32,8 @@ export async function create(formData) {
     revalidatePath("/CadastrarAluno")
     return { ok: "Conta cadastrada com sucesso" }
 }
+
+export async function getCadastro() {
+    const response = await fetch(url, { next: { revalidate: 3600 } })
+    return response.json()
+  }
