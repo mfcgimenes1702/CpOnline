@@ -2,12 +2,7 @@ import NavBar from "@/components/NavBar";
 import DataRow from "./DataRow";
 import { AcademicCapIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-
-async function getCadastro() {
-  const url = "https://cponline-production.up.railway.app/api/aluno/"
-  const response = await fetch(url, { next: { revalidate: 3600 } })
-  return response.json()
-}
+import { getCadastro } from "@/actions/CadastroAluno";
 
 export default async function CadastroAluno() {
   const data = await getCadastro()

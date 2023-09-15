@@ -1,11 +1,10 @@
 'use server'
 import { revalidatePath } from "next/cache"
-import {getContas} from "@actions/CadastrarAluno"
 
-const url = process.env.NETX_PUBLIC_BASE_URL + "aluno/"
+const url = process.env.NEXT_PUBLIC_BASE_URL + "aluno/"
 
 export async function create(formData) {
-    
+
     const data = Object.fromEntries(formData)
     console.log(data)
 
@@ -36,4 +35,4 @@ export async function create(formData) {
 export async function getCadastro() {
     const response = await fetch(url, { next: { revalidate: 3600 } })
     return response.json()
-  }
+}

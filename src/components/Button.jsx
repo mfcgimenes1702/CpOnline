@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import * as React from 'react';
-import Button from '@mui/material/Button';
 
 export default function Button({children,icon,variant="primary",element="link", ...props}) {
   const styles = {
@@ -12,12 +12,10 @@ export default function Button({children,icon,variant="primary",element="link", 
   return (
     <>
     {element==="link"?
-      <link href= "#" {...props} className='flex inten-center gap-2 bg-blue-600 py-1 px-4 rounded hover:bg-blue-800'>
+      <Link href= "#" {...props} className='flex inten-center gap-2 bg-blue-600 py-1 px-4 rounded hover:bg-blue-800'>
        {icon}
        {children}
-
-
-      </link>
+      </Link>
   :
       <input type="submit" value={children}/>  
   }
