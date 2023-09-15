@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache"
 
 export async function create(formData) {
-    const url = "http://localhost:8080/api/aluno/"
+    const url = "https://cponline-production.up.railway.app/api/aluno/"
 
     const data = Object.fromEntries(formData)
     console.log(data)

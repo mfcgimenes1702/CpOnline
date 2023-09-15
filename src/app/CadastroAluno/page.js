@@ -4,7 +4,7 @@ import { AcademicCapIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 async function getCadastro() {
-  const url = "http://localhost:8080/api/aluno/"
+  const url = "https://cponline-production.up.railway.app/api/aluno/"
   const response = await fetch(url, { next: { revalidate: 3600 } })
   return response.json()
 }
