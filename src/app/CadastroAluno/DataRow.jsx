@@ -13,8 +13,8 @@ export default function DataRow({ aluno }) {
                 <span>{aluno?.email}</span>
             </div>
             <div className="flex gap-1 items-center">
-                <div >
-                    <DropMenu className="text-slate-300" />
+                <div className="text-slate-300" >
+                    <DropMenu aluno={aluno} />
                 </div>
 
             </div>

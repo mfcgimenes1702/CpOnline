@@ -1,19 +1,60 @@
 "use client"
 
-import * as React from 'react';
+import { destroy } from '@/actions/CadastroAluno';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
 
-export default function DropMenu() {
+
+export default function DropMenu({aluno}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const router = useRouter()
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleEdit = () => {
+    router.push("/aluno/+ aluno.id +/edit")
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleDelete = () => {
+    const response = destroy(aluno.id)
+    
+    if(response?.error)
+      toast.error(response.error, {style: {
+        boarderRadius: '8px',
+        background: '#333',
+        color: '#fff',
+      }})
+
+    else{
+        toast.sucess("Aluno apagado com sucesso! ", {style: {
+          boarderRadius: '8px',
+          background: '#333',
+          color: '#fff',
+        }})
+      }
+
+      setAnchorEl(null);
+    
+  }
 
   return (
     <div>
@@ -35,9 +76,28 @@ export default function DropMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Editar</MenuItem>
-        <MenuItem onClick={handleClose}>Excluir</MenuItem>
+       
+        <AlertDialog>
+          <AlertDialogTrigger>
+          <MenuItem >Excluir</MenuItem>
+          </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Tem certeza que quer apagar o aluno? </AlertDialogTitle>
+                <AlertDialogDescription>
+                Ao apagar o aluno, todos os dados serão perdidos. Essa ação não poderá ser desfeita.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick ={handleDelete} >Sim, pode apagar esse aluno</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+
+        
+        <MenuItem onClick={handleEdit}>Editar</MenuItem>
         </Menu>
     </div>
-  );
-}
+  )
+      }

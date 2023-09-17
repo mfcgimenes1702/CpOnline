@@ -33,6 +33,59 @@ export async function create(formData) {
 }
 
 export async function getCadastro() {
+    await new Promise(r => setTimeout(r, 5000))
     const response = await fetch(url, { next: { revalidate: 3600 } })
     return response.json()
+}
+
+export async function destroy(id){
+    const deleteUrl = url + "/" + id
+    const options = {
+        method: "DELETE"
+    }
+
+    fetch(deleteUrl, options)
+    if(!response.ok){
+        const json = await response.json()
+        return {error: "Falha ao apagar o Aluno. Verifique se existem dados. "}
+    }
+
+    revalidatePath("/aluno")
+}
+
+export async function getCadastro(id){
+    const getUrl = url + "/" + id
+    const response = await fetch(getUrl)
+    
+    const json = await response.json()
+
+    if(!response.ok){
+    return {error: "Falha ao carregar aluno." + json.mensage}
+    }
+
+    return json
+}
+
+export async function update(aluno){
+    
+    const updateUrl = url + "/" + aluno.id
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify(aluno),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    const response = await fetch(updateUrl, options)
+
+    if(!response.ok){
+        const json = await response.json
+    return {error: "Erro ao atualizar." + json.mensage}
+}
+revalidatePath("/aluno")
+
+return {ok: "Aluno Alterado com sucesso." + mensage}
+
+
 }
