@@ -17,9 +17,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { redirect } from "next/navigation";
 
 
-export default function DropMenu({aluno}) {
+export default function DropMenu({ aluno }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const router = useRouter()
@@ -28,7 +30,7 @@ export default function DropMenu({aluno}) {
   };
 
   const handleEdit = () => {
-    router.push("/aluno/+ aluno.id +/edit")
+    router.push("/CadastroAluno/" + aluno.id + "/edit")
   }
   const handleClose = () => {
     setAnchorEl(null);
@@ -36,24 +38,28 @@ export default function DropMenu({aluno}) {
 
   const handleDelete = () => {
     const response = destroy(aluno.id)
-    
-    if(response?.error)
-      toast.error(response.error, {style: {
-        boarderRadius: '8px',
-        background: '#333',
-        color: '#fff',
-      }})
 
-    else{
-        toast.sucess("Aluno apagado com sucesso! ", {style: {
+    if (response?.error)
+      toast.error(response.error, {
+        style: {
           boarderRadius: '8px',
           background: '#333',
           color: '#fff',
-        }})
-      }
+        }
+      })
 
-      setAnchorEl(null);
-    
+    else {
+      toast.success("Aluno apagado com sucesso! ", {
+        style: {
+          boarderRadius: '8px',
+          background: '#333',
+          color: '#fff',
+        }
+      })
+    }
+
+    setAnchorEl(null);
+    redirect("/CadastroAluno")
   }
 
   return (
@@ -65,7 +71,7 @@ export default function DropMenu({aluno}) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
       </Button>
       <Menu
         id="basic-menu"
@@ -76,28 +82,28 @@ export default function DropMenu({aluno}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-       
+
         <AlertDialog>
           <AlertDialogTrigger>
-          <MenuItem >Excluir</MenuItem>
+            <MenuItem >Excluir</MenuItem>
           </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Tem certeza que quer apagar o aluno? </AlertDialogTitle>
-                <AlertDialogDescription>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Tem certeza que quer apagar o aluno? </AlertDialogTitle>
+              <AlertDialogDescription>
                 Ao apagar o aluno, todos os dados serão perdidos. Essa ação não poderá ser desfeita.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction onClick ={handleDelete} >Sim, pode apagar esse aluno</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete} >Sim, pode apagar esse aluno</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
         </AlertDialog>
 
-        
+
         <MenuItem onClick={handleEdit}>Editar</MenuItem>
-        </Menu>
+      </Menu>
     </div>
   )
-      }
+}

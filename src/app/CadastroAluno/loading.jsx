@@ -8,10 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default async function Loading() {
   const data = Array(3).fill({})
 
-  data._embedded.entityModelList.map(item => {
-    console.log(item.nome)
-  })
-
   return (
     <>
       <NavBar active={"Cadastro"} />
@@ -28,15 +24,15 @@ export default async function Loading() {
             {data.map(() => {
               return (
                 <div id="data-row" className="flex items-center justify-between hover:bg-slate-400 p-2 my-2 cursor-pointer rounded text-gray-700" >
-            <div className="flex gap-3">
-                <Skeleton className="h-6 w-6" rounded-full />
-                <Skeleton className="h-6 w-6 bg-slate-600"/>
-               <div id="data-row" className="flex items-center justify-between hover:bg-slate-400 p-2 my-2 cursor-pointer rounded text-gray-700" > 
-               <Skeleton className="h-6 w-6 bg-slate-600"/>
-               </div>
-            </div>
-            
-        </div>
+                  <div className="flex gap-3">
+                    <Skeleton className="h-6 w-6" rounded-full />
+                    <Skeleton className="h-6 w-6 bg-slate-600" />
+                    <div id="data-row" className="flex items-center justify-between hover:bg-slate-400 p-2 my-2 cursor-pointer rounded text-gray-700" >
+                      <Skeleton className="h-6 w-6 bg-slate-600" />
+                    </div>
+                  </div>
+
+                </div>
               )
             })}
           </div>

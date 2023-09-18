@@ -36,7 +36,7 @@ export default function FormCadastro(){
                 <TextInput nome="instituicao" id="instituição" label="Instituição"/>
 
                 <div>
-                    <button href="/CadastroAluno" className="bg-blue-500 px-6 py-2 rounded text-white font-bold hover:bg-blue-400 transition-colors">
+                    <button className="bg-blue-500 px-6 py-2 rounded text-white font-bold hover:bg-blue-400 transition-colors">
                         Cadastrar Aluno
                     </button>
                 </div>
