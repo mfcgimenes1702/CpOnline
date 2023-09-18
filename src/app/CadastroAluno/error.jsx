@@ -6,7 +6,6 @@ import { useEffect } from "react"
 export default function Error({error, reset}){
     useEffect(() =>{
     //log the erros to an erro repoting service
-    console.error(error)
 }, [error])
 
 return (

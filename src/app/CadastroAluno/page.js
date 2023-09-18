@@ -7,10 +7,6 @@ import { getCadastro } from "@/actions/CadastroAluno";
 export default async function CadastroAluno() {
   const data = await getCadastro()
 
-  data._embedded.entityModelList.map(item => {
-    console.log(item.nome)
-  })
-
   return (
     <>
       <NavBar active={"Cadastro"} />
