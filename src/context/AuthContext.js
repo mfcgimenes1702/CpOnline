@@ -1,3 +1,4 @@
+import { apiLogin, apiLogout } from "@/actions/user";
 import { useRouter } from "next/navigation";
 
 const { createContext, Children, use, useState } = require("react");
@@ -9,7 +10,9 @@ export function AuthPovider(children){
     const { push } = useRouter()
    
 
-    const login = () => {
+    const login = async (credenciais) => {
+        await apiLogin(credenciais)
+        
         setUser({
             nome: "Marcelo",
             email:"rm93897@fiap.com.br"
@@ -18,6 +21,7 @@ export function AuthPovider(children){
     }
 
     const logout = () => {}
+        apiLogout()
         console.log("sair")
         setUser(null)
         push("/login")

@@ -11,7 +11,7 @@ export default function Login(){
    
     const onSubmit = (data) => {
         console.log(data) 
-        lengthogin()
+        login(data)
     }
     return(
         <div className='flex h-screen'>

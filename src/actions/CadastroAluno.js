@@ -1,5 +1,6 @@
 'use server'
 import { revalidatePath } from "next/cache"
+import { cookies } from "next/headers"
 
 const url = process.env.NEXT_PUBLIC_BASE_URL + "aluno/"
 
@@ -31,9 +32,18 @@ export async function create(formData) {
 }
 
 export async function getCadastro() {
-    await new Promise(r => setTimeout(r, 5000))
-    const response = await fetch(url, { next: { revalidate: 3600 } })
-    return response.json()
+    const token = cookies.get("cponline_token")
+    const options = {
+        headers:{ 
+            "Authorization": 'Bearer ${token.value}'
+
+        }
+    }
+    const response = await fetch(url, options)
+
+    if(response.status !== 200) throw new Error("Não pode carrergar os dados")
+
+    return await response.json()
 }
 
 export async function destroy(id) {
@@ -85,4 +95,5 @@ export async function update(aluno) {
     return { ok: "Aluno Alterado com sucesso." }
 
 
+    
 }
