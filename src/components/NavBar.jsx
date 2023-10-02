@@ -1,8 +1,14 @@
 'use client';
+import { AuthContext } from "@/context/AuthContext";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import { useContext } from "react";
+import Button from "./Button";
+import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
+
 
 export default function NavBar({ active }) {
+    const {user} = useContext(AuthContext)
 
     const pathname = usePathname();
 
@@ -63,9 +69,15 @@ export default function NavBar({ active }) {
 
 
             </ul>
-
+            <div className="flex itens-center gap-2">
+                {user?.nome}
             <div className="h-12 w-12 rounded-full overflow-hidden">
                 <img src="https://i.pravatar.cc/100" alt="avatar do usuário" />
+            </div>
+            <Button onClick={logout} variant="secondary" element = "button" icon={<ArrowLeftOnRectangleIcon className="h-4 w-4"/>}>
+                Sair
+            </Button>
+
             </div>
         </nav>
     )
